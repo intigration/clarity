@@ -42,6 +42,7 @@
     "format:fix": "pretty-quick --staged",
     "format:file": "prettier --write .",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "publish:prepare": "npm-run-all clean ngcc:fix build:libs",
     "publish:copyversion": "node scripts/copy-version",
     "publish:latest": "yarn publish dist/core; yarn publish dist/clr-ui; yarn publish dist/clr-angular; yarn publish dist/clr-icons; yarn publish dist/react",
     "publish:next": "yarn publish dist/core --tag next; yarn publish dist/clr-ui --tag next; yarn publish dist/clr-angular --tag next; yarn publish dist/clr-icons --tag next; yarn publish dist/react --tag next;",
@@ -72,7 +73,11 @@
     "react:start": "yarn --cwd packages/react run start",
     "react:build": "yarn --cwd packages/react run build",
     "react:lint": "yarn --cwd packages/react run lint",
-    "react:test": "yarn --cwd packages/react run test"
+    "react:test": "yarn --cwd packages/react run test",
+    "website:build": "yarn --cwd apps/website build; yarn --cwd packages/angular run build-storybook; yarn --cwd packages/core dev:build",
+    "website:deploy": "scripts/website.sh",
+    "website:preview": "lite-server --baseDir=dist/website",
+    "website:start": "yarn --cwd apps/website start"
   },
   "devDependencies": {
     "@commitlint/cli": "8.0.0",
@@ -108,11 +113,11 @@
     "stylelint-scss": "3.9.2",
     "superagent": "5.1.0",
     "ts-node": "8.2.0",
-    "typescript": "3.7.5"
+    "typescript": "3.9.5"
   },
   "engines": {
     "node": ">=12 <13",
-    "yarn": ">=1.22.4 <2",
+    "yarn": ">=1.17.0 <2",
     "npm": "     PLEASE USE YARN     "
   },
   "husky": {
